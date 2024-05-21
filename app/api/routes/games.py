@@ -1,4 +1,5 @@
 import random
+from typing import Literal
 
 from fastapi import APIRouter, Depends, status
 
@@ -26,12 +27,14 @@ async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
 
 
 @router.get("", summary="List all games")
-async def list_games() -> list[Game]:
+async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
     """
     List all the existing games
     """
     all_games = game_cache.list_games()
-    all_games.sort(key=lambda game: game.created_at)
+    all_games.sort(
+        key=lambda game: game.created_at, reverse=True if order == "desc" else False
+    )
     return all_games
 
 
