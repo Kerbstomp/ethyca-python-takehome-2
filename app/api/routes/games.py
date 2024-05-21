@@ -68,3 +68,13 @@ async def update_game(game_id: str, game_move: GameMove) -> Game:
         retrieved_game.status = GameStatus.COMPLETED_COMPUTER_WINNER
 
     return retrieved_game
+
+
+@router.get("/{game_id}/moves", summary="List all game moves")
+async def get_game_moves(
+    game: Game = Depends(game_cache.find_game),
+) -> dict[str, GameMove]:
+    """
+    List all the game moves for an existing game by ID
+    """
+    return game.moves
