@@ -54,6 +54,7 @@ Time taken to complete: 3.5 hours
  - List all games endpoint supports the `order` query param that allows for sorting the results by the created at date/time, asceding (default) or descending
  - Endpoint added to allow for forfeiting an existing game
  - Built out and published a [Postman](https://www.postman.com/) collection for testing the API
+ - Added some simple GitHub actions for CI tools
 
 ### Feedback
 
