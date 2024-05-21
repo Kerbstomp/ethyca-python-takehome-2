@@ -22,7 +22,7 @@ Project Details can be found [here](https://github.com/ethyca/python-takehome-2)
 Run the following command to get started:
 
 ```
-pip install fastapi
+pip install -r requirements.txt
 ```
 
 ### Run
