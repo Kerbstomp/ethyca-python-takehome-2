@@ -1,9 +1,5 @@
 # Noughts & Crosses
 
-[![Code style: black][black-image]][black-url]
-
-## Overview
-
 Noughts and Crosses (British English), Tic-tac-toe (American English) is a game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a diagonal, horizontal, or vertical row is the winner
 
 Project Details can be found [here](https://github.com/ethyca/python-takehome-2)
@@ -49,6 +45,7 @@ Time taken to complete: 3.5 hours
 ### Extra features
 
  - List all games endpoint supports the `order` query param that allows for sorting the results by the created at date/time, asceding (default) or descending
+ - Endpoint added to allow for forfeiting an existing game
  - Built out and published a Postman collection for testing the API
 
 ### Feedback

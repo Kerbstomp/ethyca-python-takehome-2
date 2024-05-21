@@ -95,6 +95,7 @@ async def get_game_moves(
 
 @router.patch("/{game_id}/forfeit", summary="Forfeit a game")
 async def forfeit_game(game: Game = Depends(game_cache.find_game)) -> Game:
+    game.check_game_in_progress()
     game.status = GameStatus.FORFEITED
 
     return game
