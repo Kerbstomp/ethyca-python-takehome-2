@@ -104,7 +104,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://127.0.0.1:8000/games",
+					"raw": "http://127.0.0.1:8000/games?order=desc",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -115,6 +115,36 @@
 					"port": "8000",
 					"path": [
 						"games"
+					],
+					"query": [
+						{
+							"key": "order",
+							"value": "desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{id}/moves",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/games/{{gameId}}/moves",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games",
+						"{{gameId}}",
+						"moves"
 					]
 				}
 			},
