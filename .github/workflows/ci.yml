@@ -1,0 +1,53 @@
+---
+name: CI
+on: [ push, pull_request ]
+
+jobs:
+  pytest:
+    name: pytest
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      - uses: szenius/set-timezone@v2.0
+        with:
+          timezoneLinux: "America/Chicago"
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pip install -r requirements.txt; pip install pytest-md pytest-emoji
+      - uses: pavelzw/pytest-action@v2
+        with:
+          emoji: true
+          verbose: true
+          job-summary: true
+  black:
+    name: black
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python Black
+        uses: cytopia/docker-black@0.8
+        with:
+          path: 'app/'
+  isort:
+    name: isort
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10"]
+        
+    steps:
+      - uses: actions/checkout@v4
+      - uses: isort/isort-action@v1
+        with:
+          requirements-files: "requirements.txt"

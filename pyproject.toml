@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools"]
+
+[project]
+name = "noughts_and_crosses"
+version = "0.1.0"
+description = "FastAPI implementation of the popular game Noughts and Crosses"
+requires-python = ">=3.10"
+authors = [{ name = "Justin Kerber", email = "jpkerber92@gmail.com" }]
+dependencies = ["fastapi", "uvicorn", "pytest", "httpx"]
+
+[tool.black]
+line-length = 88
