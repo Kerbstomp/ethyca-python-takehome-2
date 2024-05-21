@@ -43,6 +43,7 @@ Time taken to complete: 3.5 hours
  - No authentication required to hit API
  - No pagination in list endpoints
  - Player symbols are not selectable, user player is always denoted to symbol 'X'
+ - No unit tests 🙃
 
 ### Extra features
 
@@ -52,4 +53,4 @@ Time taken to complete: 3.5 hours
 
 ### Feedback
 
-I quite enjoyed this project! I am a big propenent of these kinds of technical assesments over doing live coding just solving random leet code type problems. This type of assesment is much more applicable to the work I normally do (and would be doing in this role), and is much more fun to work on :)
+I quite enjoyed this project! I am a big propenent of these kinds of technical assesments over doing live coding just solving random leet code type problems. This type of assesment is much more applicable to the work I normally do (and would be doing in this role), and is much more fun to work on 😄
