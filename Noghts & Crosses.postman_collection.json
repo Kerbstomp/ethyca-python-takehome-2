@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "fbb594de-06cc-4b75-ad91-2c401f034666",
-		"name": "Ethyca",
+		"name": "Noghts & Crosses",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "27081386"
 	},
@@ -73,7 +73,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n  \"x\": 2,\n  \"y\": 1\n}",
+					"raw": "{\n  \"x\": 2,\n  \"y\": 0\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -145,6 +145,30 @@
 						"games",
 						"{{gameId}}",
 						"moves"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{id}/forfeit",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/games/{{gameId}}/forfeit",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games",
+						"{{gameId}}",
+						"forfeit"
 					]
 				}
 			},
