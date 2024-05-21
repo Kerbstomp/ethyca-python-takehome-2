@@ -47,7 +47,7 @@ Time taken to complete: 3.5 hours
  - No authentication required to hit API
  - No pagination in list endpoints
  - Player symbols are not selectable, user player is always denoted to symbol 'X'
- - No unit tests 🙃
+ - ~~No~~ Very little unit tests 🙃
 
 ### Extra features
 
