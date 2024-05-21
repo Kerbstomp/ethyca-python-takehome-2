@@ -1,4 +1,3 @@
-import datetime
 import uuid
 
 from fastapi import HTTPException
@@ -12,8 +11,7 @@ class GameCache:
         self._games: dict[str, Game] = {}
 
     def new_game(self) -> Game:
-        # game = Game(id=str(uuid.uuid4()), created_at=datetime.datetime.now())
-        game = Game()
+        game = Game(id=str(uuid.uuid4()))
         self._games[game.id] = game
 
         return game

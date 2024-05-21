@@ -9,25 +9,40 @@ router = APIRouter()
 game_cache = GameCache()
 
 
-@router.post("", status_code=status.HTTP_201_CREATED)
+@router.post("", summary="Create a new game", status_code=status.HTTP_201_CREATED)
 async def create_game(game: Game = Depends(game_cache.new_game)) -> Game:
+    """
+    Create a new game of Noughts & Crosses
+    """
     return game
 
 
-@router.get("/{game_id}")
+@router.get("/{game_id}", summary="Retrieve a game")
 async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
+    """
+    Retrieve an existing game by ID
+    """
     return game
 
 
-@router.get("")
+@router.get("", summary="List all games")
 async def list_games() -> list[Game]:
+    """
+    List all the existing games
+    """
     all_games = game_cache.list_games()
     all_games.sort(key=lambda game: game.created_at)
     return all_games
 
 
-@router.patch("/{game_id}")
+@router.patch("/{game_id}", summary="Update a game")
 async def update_game(game_id: str, game_move: GameMove) -> Game:
+    """
+    Update an existing game by making a game move. A game move
+    consists of co-ordinates (x,y) that represent a space on the
+    game board. The computer will automatically make a move after
+    the players move is completed
+    """
     retrieved_game = game_cache.find_game(game_id)
 
     retrieved_game.check_game_in_progress()
@@ -45,7 +60,7 @@ async def update_game(game_id: str, game_move: GameMove) -> Game:
         retrieved_game.status = GameStatus.COMPLETED_TIE
         return retrieved_game
 
-    retrieved_game.capture_move(move=random.choice(available_moves), player="Y")
+    retrieved_game.capture_move(move=random.choice(available_moves), player="O")
 
     # check if computer won
     winner = retrieved_game.check_winner()

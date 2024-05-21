@@ -1,5 +1,6 @@
 import datetime
 from enum import Enum
+from typing import Literal
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
@@ -7,8 +8,8 @@ import uuid
 
 
 class GameMove(BaseModel):
-    x: int = Field(ge=0, lt=3, description="Position on the x-axis of the game board")
-    y: int = Field(ge=0, lt=3, description="Position on the y-axis of the game board")
+    x: int = Field(ge=0, le=2, description="Position on the x-axis of the game board")
+    y: int = Field(ge=0, le=2, description="Position on the y-axis of the game board")
 
 
 class GameStatus(str, Enum):
@@ -21,14 +22,37 @@ class GameStatus(str, Enum):
 
 
 class Game(BaseModel):
-    id: str = Field(default_factory=uuid.uuid4())
-    created_at: datetime.datetime = Field(default_factory=datetime.datetime.now())
-    status: GameStatus = GameStatus.NOT_STARTED
-    user_player: str = "X"
-    game_board: list[list[str]] = [[".", ".", "."], [".", ".", "."], [".", ".", "."]]
-    moves: dict[str, GameMove] = {}
+    id: str = Field(description="The ID of the game")
+    created_at: datetime.datetime = Field(
+        default_factory=datetime.datetime.now,
+        description="The date and time when the game was created",
+        alias="createdAt",
+    )
+    status: GameStatus = Field(
+        default=GameStatus.NOT_STARTED,
+        description="The status of the game",
+    )
+    user_symbol: str = Field(
+        default="X",
+        description="The symbol that represents the user on the game board",
+        alias="userSymbol",
+    )
+    computer_symbol: str = Field(
+        default="O",
+        description="The symbol that represents the computer on the game board",
+        alias="computerSymbol",
+    )
+    game_board: list[list[str]] = Field(
+        default=[[".", ".", "."], [".", ".", "."], [".", ".", "."]],
+        description="The current state of the game board",
+        alias="gameBoard",
+    )
+    moves: dict[str, GameMove] = Field(
+        default_factory=dict,
+        description="The list of all the moves performed by both players in the game",
+    )
 
-    def capture_move(self, move: GameMove, player: str) -> None:
+    def capture_move(self, move: GameMove, player: Literal["X", "O"]) -> None:
         if self.status == GameStatus.NOT_STARTED:
             self.status = GameStatus.IN_PROGRESS
 
