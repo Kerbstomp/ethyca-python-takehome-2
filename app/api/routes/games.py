@@ -19,7 +19,11 @@ async def create_game(game: Game = Depends(game_cache.new_game)) -> Game:
     return game
 
 
-@router.get("/{game_id}", summary="Retrieve a game")
+@router.get(
+    "/{game_id}",
+    summary="Retrieve a game",
+    responses={404: {"description": "Game not found"}},
+)
 async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
     """
     Retrieve an existing game by ID
@@ -40,7 +44,11 @@ async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
     return all_games
 
 
-@router.patch("/{game_id}", summary="Update a game")
+@router.patch(
+    "/{game_id}",
+    summary="Update a game",
+    responses={404: {"description": "Game not found"}},
+)
 async def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
     """
     Update an existing game by making a game move. A game move
@@ -83,3 +91,10 @@ async def get_game_moves(
     List all the game moves for an existing game by ID
     """
     return game.moves
+
+
+@router.patch("/{game_id}/forfeit", summary="Forfeit a game")
+async def forfeit_game(game: Game = Depends(game_cache.find_game)) -> Game:
+    game.status = GameStatus.FORFEITED
+
+    return game
