@@ -83,7 +83,11 @@ async def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
     return retrieved_game
 
 
-@router.get("/{game_id}/moves", summary="List all game moves")
+@router.get(
+    "/{game_id}/moves",
+    summary="List all game moves",
+    responses={404: {"description": "Game not found"}},
+)
 async def get_game_moves(
     game: Game = Depends(game_cache.find_game),
 ) -> dict[str, GameMove]:
@@ -93,7 +97,11 @@ async def get_game_moves(
     return game.moves
 
 
-@router.patch("/{game_id}/forfeit", summary="Forfeit a game")
+@router.patch(
+    "/{game_id}/forfeit",
+    summary="Forfeit a game",
+    responses={404: {"description": "Game not found"}},
+)
 async def forfeit_game(game: Game = Depends(game_cache.find_game)) -> Game:
     game.check_game_in_progress()
     game.status = GameStatus.FORFEITED
