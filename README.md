@@ -4,6 +4,8 @@ Noughts and Crosses (British English), Tic-tac-toe (American English) is a game 
 
 Project Details can be found [here](https://github.com/ethyca/python-takehome-2)
 
+This project was built using the [FastAPI](https://fastapi.tiangolo.com/) python web framework
+
 ## Quick Start
 
 ### Minimum requirements
@@ -17,7 +19,7 @@ Project Details can be found [here](https://github.com/ethyca/python-takehome-2)
 
 Run the following command to get started:
 
-```
+```sh
 pip install -r requirements.txt
 ```
 
@@ -25,7 +27,7 @@ pip install -r requirements.txt
 
 Run the following command to start the application:
 
-```
+```sh
 uvicorn app.main:app
 ```
 
@@ -46,7 +48,7 @@ Time taken to complete: 3.5 hours
 
  - List all games endpoint supports the `order` query param that allows for sorting the results by the created at date/time, asceding (default) or descending
  - Endpoint added to allow for forfeiting an existing game
- - Built out and published a Postman collection for testing the API
+ - Built out and published a [Postman](https://www.postman.com/) collection for testing the API
 
 ### Feedback
 
