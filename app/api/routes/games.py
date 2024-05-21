@@ -1,5 +1,6 @@
 import random
 from typing import Literal
+import uuid
 
 from fastapi import APIRouter, Depends, status
 
@@ -40,7 +41,7 @@ async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
 
 
 @router.patch("/{game_id}", summary="Update a game")
-async def update_game(game_id: str, user_move: Move) -> Game:
+async def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
     """
     Update an existing game by making a game move. A game move
     consists of co-ordinates (x,y) that represent a space on the
