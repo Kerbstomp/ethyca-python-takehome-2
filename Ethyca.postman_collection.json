@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "fbb594de-06cc-4b75-ad91-2c401f034666",
+		"name": "Ethyca",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27081386"
+	},
+	"item": [
+		{
+			"name": "/games",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Save game id from response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var gameId = jsonData.id;",
+							"    pm.globals.set(\"gameId\", gameId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/games",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/games/{{gameId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/games/{id}",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"x\": 2,\n  \"y\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/games/{{gameId}}",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games",
+						"{{gameId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/games",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"games"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
