@@ -4,7 +4,6 @@ from typing import Literal
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
-import uuid
 
 
 class GameMove(BaseModel):
@@ -18,7 +17,6 @@ class GameStatus(str, Enum):
     COMPLETED_USER_WINNER = "Completed - You Won!"
     COMPLETED_COMPUTER_WINNER = "Completed - Computer Won!"
     COMPLETED_TIE = "Completed - It's a Tie!"
-    FORFEITED = "Forfeited"
 
 
 class Game(BaseModel):
