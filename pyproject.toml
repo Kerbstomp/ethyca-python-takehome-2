@@ -1,4 +1,3 @@
-
 [build-system]
 requires = ["setuptools"]
 
@@ -12,7 +11,3 @@ dependencies = ["fastapi", "uvicorn", "pytest", "httpx"]
 
 [tool.black]
 line-length = 88
-
-[tool.flake8]
-format = "wemake"
-max-line-length = 88
