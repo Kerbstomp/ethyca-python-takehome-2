@@ -4,7 +4,7 @@ from typing import Literal
 from fastapi import APIRouter, Depends, status
 
 from app.cache import GameCache
-from app.models import Game, GameMove, GameStatus
+from app.models import Game, GameMove, GameStatus, Move
 
 router = APIRouter()
 game_cache = GameCache()
@@ -29,17 +29,18 @@ async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
 @router.get("", summary="List all games")
 async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
     """
-    List all the existing games
+    List all the existing games, sorted by createdAt
     """
     all_games = game_cache.list_games()
     all_games.sort(
-        key=lambda game: game.created_at, reverse=True if order == "desc" else False
+        key=lambda game: game.created_at,
+        reverse=True if order == "desc" else False,
     )
     return all_games
 
 
 @router.patch("/{game_id}", summary="Update a game")
-async def update_game(game_id: str, game_move: GameMove) -> Game:
+async def update_game(game_id: str, user_move: Move) -> Game:
     """
     Update an existing game by making a game move. A game move
     consists of co-ordinates (x,y) that represent a space on the
@@ -49,7 +50,7 @@ async def update_game(game_id: str, game_move: GameMove) -> Game:
     retrieved_game = game_cache.find_game(game_id)
 
     retrieved_game.check_game_in_progress()
-    retrieved_game.capture_move(move=game_move, player="X")
+    retrieved_game.capture_move(move=user_move, player="X")
 
     # check if user won
     winner = retrieved_game.check_winner()

@@ -1,14 +1,20 @@
 import datetime
 from enum import Enum
-from typing import Literal
+from typing import Literal, TypeAlias
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
 
+_PLAYER: TypeAlias = Literal["X", "O"]
 
-class GameMove(BaseModel):
+
+class Move(BaseModel):
     x: int = Field(ge=0, le=2, description="Position on the x-axis of the game board")
     y: int = Field(ge=0, le=2, description="Position on the y-axis of the game board")
+
+
+class GameMove(Move):
+    player: _PLAYER = Field(description="The player that made the move")
 
 
 class GameStatus(str, Enum):
@@ -50,7 +56,7 @@ class Game(BaseModel):
         description="The list of all the moves performed by both players in the game",
     )
 
-    def capture_move(self, move: GameMove, player: Literal["X", "O"]) -> None:
+    def capture_move(self, move: Move, player: _PLAYER) -> None:
         if self.status == GameStatus.NOT_STARTED:
             self.status = GameStatus.IN_PROGRESS
 
@@ -61,7 +67,10 @@ class Game(BaseModel):
             )
 
         self.game_board[move.x][move.y] = player
-        self.moves[f"Player {player}, move {len(self.moves) // 2}"] = move
+        self.moves[f"Move #{len(self.moves) + 1}"] = GameMove(
+            player=player,
+            **move.dict(),
+        )
 
     def check_game_in_progress(self) -> None:
         if self.status not in [GameStatus.NOT_STARTED, GameStatus.IN_PROGRESS]:
@@ -70,12 +79,12 @@ class Game(BaseModel):
                 detail="The game found for the provided ID has already been completed",
             )
 
-    def get_available_moves(self) -> list[GameMove]:
+    def get_available_moves(self) -> list[Move]:
         available_moves = []
         for row_idx, row in enumerate(self.game_board):
             for col_idx, _ in enumerate(row):
                 if self.game_board[row_idx][col_idx] == ".":
-                    available_moves.append(GameMove(x=row_idx, y=col_idx))
+                    available_moves.append(Move(x=row_idx, y=col_idx))
 
         return available_moves
 
