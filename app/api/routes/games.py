@@ -12,7 +12,7 @@ game_cache = GameCache()
 
 
 @router.post("", summary="Create a new game", status_code=status.HTTP_201_CREATED)
-async def create_game(game: Game = Depends(game_cache.new_game)) -> Game:
+def create_game(game: Game = Depends(game_cache.new_game)) -> Game:
     """
     Create a new game of Noughts & Crosses
     """
@@ -24,7 +24,7 @@ async def create_game(game: Game = Depends(game_cache.new_game)) -> Game:
     summary="Retrieve a game",
     responses={404: {"description": "Game not found"}},
 )
-async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
+def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
     """
     Retrieve an existing game by ID
     """
@@ -32,7 +32,7 @@ async def get_game(game: Game = Depends(game_cache.find_game)) -> Game:
 
 
 @router.get("", summary="List all games")
-async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
+def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
     """
     List all the existing games, sorted by createdAt
     """
@@ -49,7 +49,7 @@ async def list_games(order: Literal["asc", "desc"] = "asc") -> list[Game]:
     summary="Update a game",
     responses={404: {"description": "Game not found"}},
 )
-async def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
+def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
     """
     Update an existing game by making a game move. A game move
     consists of co-ordinates (x,y) that represent a space on the
@@ -88,7 +88,7 @@ async def update_game(game_id: uuid.UUID, user_move: Move) -> Game:
     summary="List all game moves",
     responses={404: {"description": "Game not found"}},
 )
-async def get_game_moves(
+def get_game_moves(
     game: Game = Depends(game_cache.find_game),
 ) -> dict[str, GameMove]:
     """
@@ -102,7 +102,7 @@ async def get_game_moves(
     summary="Forfeit a game",
     responses={404: {"description": "Game not found"}},
 )
-async def forfeit_game(game: Game = Depends(game_cache.find_game)) -> Game:
+def forfeit_game(game: Game = Depends(game_cache.find_game)) -> Game:
     game.check_game_in_progress()
     game.status = GameStatus.FORFEITED
 
