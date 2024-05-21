@@ -8,15 +8,15 @@ from app.models import Game
 # this would ideally be a real db :)
 class GameCache:
     def __init__(self) -> None:
-        self._games: dict[str, Game] = {}
+        self._games: dict[uuid.UUID, Game] = {}
 
     def new_game(self) -> Game:
-        game = Game(id=str(uuid.uuid4()))
+        game = Game()
         self._games[game.id] = game
 
         return game
 
-    def find_game(self, game_id: str) -> Game:
+    def find_game(self, game_id: uuid.UUID) -> Game:
         game = self._games.get(game_id, None)
         if not game:
             raise HTTPException(

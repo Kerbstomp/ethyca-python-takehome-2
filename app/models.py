@@ -4,6 +4,7 @@ from typing import Literal, TypeAlias
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
+import uuid
 
 _PLAYER: TypeAlias = Literal["X", "O"]
 
@@ -26,7 +27,7 @@ class GameStatus(str, Enum):
 
 
 class Game(BaseModel):
-    id: str = Field(description="The ID of the game")
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, description="The ID of the game")
     created_at: datetime.datetime = Field(
         default_factory=datetime.datetime.now,
         description="The date and time when the game was created",
