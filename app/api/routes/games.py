@@ -1,6 +1,6 @@
 import random
-from typing import Literal
 import uuid
+from typing import Literal
 
 from fastapi import APIRouter, Depends, status
 

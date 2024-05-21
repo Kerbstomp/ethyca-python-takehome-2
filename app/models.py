@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import datetime
+import uuid
 from enum import Enum
 from typing import Literal, TypeAlias
 
 from fastapi import HTTPException
 from pydantic import BaseModel, Field
-import uuid
 
 _PLAYER: TypeAlias = Literal["X", "O"]
 
