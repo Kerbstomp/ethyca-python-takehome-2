@@ -33,6 +33,10 @@ uvicorn app.main:app
 
 The application will now be running on `http://127.0.0.1:8000`
 
+To view the REST API documentation navigate to: 
+ - `http://127.0.0.1:8000/docs` (for swagger)
+ - `http://127.0.0.1:8000/redoc` (for redoc)
+
 ## Delivery
 
 Time taken to complete: 3.5 hours
